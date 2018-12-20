@@ -3,16 +3,16 @@ FROM microsoft/nanoserver
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # Get 64-bit Node - Kibana ships with an x86 version that doesn't work in Nano
-ENV NODE_VERSION="6.9.4" `
-    NODE_SHA256="d546418b58ee6e9fefe3a2cf17cd735ef0c7ddb51605aaed8807d0833beccbf6"
+ENV NODE_VERSION="8.11.4" `
+    NODE_SHA256="6CC1BDA17EEAF68D0F8645F791DE7862D168DE6AF191B0570B9F79F79E400A08"
 
 WORKDIR c:/node
 RUN Invoke-WebRequest -OutFile node.exe "https://nodejs.org/dist/v$($env:NODE_VERSION)/win-x64/node.exe" -UseBasicParsing; `
     if ((Get-FileHash node.exe -Algorithm sha256).Hash -ne $env:NODE_SHA256) {exit 1} ;
 
 # Kibana
-ENV KIBANA_VERSION="6.2.2" `
-    KIBANA_SHA1="60444E36AAB913262ADEBBB24A3037146F273C6D"
+ENV KIBANA_VERSION="6.5.1" `
+    KIBANA_SHA1="9A5A7B23F99C1A334F3E891860480AA587654550"
 
 RUN Invoke-WebRequest -OutFile kibana.zip "https://artifacts.elastic.co/downloads/kibana/kibana-$($env:KIBANA_VERSION)-windows-x86_64.zip" -UseBasicParsing;`
     if ((Get-FileHash kibana.zip -Algorithm sha1).Hash -ne $env:KIBANA_SHA1) {exit 1} ;`
