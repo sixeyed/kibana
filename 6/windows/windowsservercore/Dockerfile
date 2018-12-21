@@ -3,14 +3,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 # Kibana
-ENV KIBANA_VERSION="6.5.3" 
-#ENV KIBANA_SHA1="9A5A7B23F99C1A334F3E891860480AA587654550"
-
-#RUN Invoke-WebRequest -OutFile kibana.zip "https://artifacts.elastic.co/downloads/kibana/kibana-$($env:KIBANA_VERSION)-windows-x86_x64.zip" -UseBasicParsing; `
-#    if ((Get-FileHash kibana.zip -Algorithm sha1).Hash -ne $env:KIBANA_SHA1) {exit 1} ; `
-#    Expand-Archive kibana.zip -DestinationPath C:\ ; `
-#    Move-Item c:\kibana-$($env:KIBANA_VERSION)-windows-x86_64 'c:\kibana'; `
-#    Remove-Item kibana.zip
+ENV KIBANA_VERSION="6.5.4"
 
 RUN Invoke-WebRequest -OutFile kibana.zip "https://artifacts.elastic.co/downloads/kibana/kibana-$($env:KIBANA_VERSION)-windows-x86_64.zip" -UseBasicParsing;
 RUN Expand-Archive kibana.zip -DestinationPath C:\ ;
